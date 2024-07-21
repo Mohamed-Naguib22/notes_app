@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:notes_app/widgets/custom_app_bar.dart';
+import 'package:notes_app/widgets/note_bottom_sheet.dart';
+import 'package:notes_app/widgets/notes_list_view.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -6,19 +9,22 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Notes"),
-        actions: [
-          Container(
-            height: 50,
-            width: 50,
-            decoration: BoxDecoration(
-              color: Colors.white.withOpacity(0.2),
-              borderRadius: BorderRadius.circular(16),
-            ),
-            child: Icon(Icons.search),
-          )
+      body: Column(
+        children: [
+          const CustomAppBar(),
+          Expanded(child: NotesListView()),
         ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          showModalBottomSheet(
+              context: context,
+              builder: (context) {
+                return NoteBottomSheet();
+              });
+        },
+        backgroundColor: Colors.lightBlue,
+        child: const Icon(Icons.add, color: Colors.black),
       ),
     );
   }
