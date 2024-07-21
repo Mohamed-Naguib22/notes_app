@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:notes_app/cubits/add_note_cubit.dart';
 import 'package:notes_app/cubits/add_note_states.dart';
+import 'package:notes_app/cubits/get_notes_cubit.dart';
 import 'package:notes_app/widgets/add_note_form.dart';
 
 class NoteBottomSheet extends StatelessWidget {
@@ -18,6 +19,7 @@ class NoteBottomSheet extends StatelessWidget {
             print("faild ${state.errorMessage}");
           }
           if (state is AddNoteSuccess) {
+            BlocProvider.of<GetNoteCubit>(context).fetchAllNotes();
             Navigator.pop(context);
           }
         },
@@ -35,7 +37,7 @@ class NoteBottomSheet extends StatelessWidget {
                 top: 32, 
                 bottom: MediaQuery.of(context).viewInsets.bottom,
               ),
-              child: SingleChildScrollView(child: AddNoteForm()),
+              child: const SingleChildScrollView(child: AddNoteForm()),
             ),
           );
         },
