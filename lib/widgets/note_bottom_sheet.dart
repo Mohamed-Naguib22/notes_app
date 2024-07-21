@@ -1,37 +1,44 @@
 import 'package:flutter/material.dart';
-import 'package:notes_app/widgets/custom_button.dart';
-import 'package:notes_app/widgets/custom_text_field.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+import 'package:notes_app/cubits/add_note_cubit.dart';
+import 'package:notes_app/cubits/add_note_states.dart';
+import 'package:notes_app/widgets/add_note_form.dart';
 
 class NoteBottomSheet extends StatelessWidget {
   const NoteBottomSheet({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const Padding(
-      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 32),
-      child: SingleChildScrollView(
-        child: Column(
-          children: [
-            CustomTextField(
-              hint: 'Text',
-              maxLines: 1,
+    return BlocProvider(
+      create: (context) => AddNoteCubit(),
+      child: BlocConsumer<AddNoteCubit, AddNoteState>(
+        listener: (context, state) {
+          if (state is AddNoteFailure) {
+            print("faild ${state.errorMessage}");
+          }
+          if (state is AddNoteSuccess) {
+            Navigator.pop(context);
+          }
+        },
+        builder: (context, state) {
+          return ModalProgressHUD(
+            inAsyncCall: state is AddNoteLoading ? true : false,
+            color: Colors.black,
+            progressIndicator: const CircularProgressIndicator(
+              valueColor: AlwaysStoppedAnimation<Color>(Colors.white), // Change the color here
             ),
-            SizedBox(
-              height: 32,
+            child: Padding(
+              padding: EdgeInsets.only(
+                right: 16, 
+                left: 16, 
+                top: 32, 
+                bottom: MediaQuery.of(context).viewInsets.bottom,
+              ),
+              child: SingleChildScrollView(child: AddNoteForm()),
             ),
-            CustomTextField(
-              hint: 'Content',
-              maxLines: 3,
-            ),
-            SizedBox(
-              height: 32,
-            ),
-            CustomButton(),
-            SizedBox(
-              height: 32,
-            ),
-          ],
-        ),
+          );
+        },
       ),
     );
   }

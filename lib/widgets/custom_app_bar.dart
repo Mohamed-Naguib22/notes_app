@@ -7,9 +7,9 @@ class CustomAppBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        SizedBox(height: 16),
+        const SizedBox(height: 16),
         Padding(
-          padding: const EdgeInsets.only(left: 24, right: 24, top: 16),
+          padding: const EdgeInsets.only(left: 24, right: 24, top: 24),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -17,6 +17,7 @@ class CustomAppBar extends StatelessWidget {
                 "Notes",
                 style: TextStyle(
                   fontSize: 32,
+                  color: Colors.white,
                 ),
               ),
               Container(
