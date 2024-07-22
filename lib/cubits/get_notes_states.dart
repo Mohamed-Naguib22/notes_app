@@ -1,5 +1,3 @@
-import 'package:notes_app/models/note_model.dart';
-
 abstract class GetNoteState {}
 
 class GetNoteLoading extends GetNoteState {}

@@ -47,29 +47,26 @@ class _AddNoteFormState extends State<AddNoteForm> {
           const SizedBox(
             height: 32,
           ),
-          ColorsListView(),
+          const ColorsListView(),
           const SizedBox(
             height: 32,
           ),
           CustomButton(
-            onTap: (){
+            onTap: () {
               if (formKey.currentState!.validate()) {
                 formKey.currentState!.save();
 
                 var noteModel = NoteModel(
-                  title: title!, 
-                  content: content!, 
-                  date: DateFormat('dd-mm-yyyy').format(DateTime.now()),
+                  title: title!,
+                  content: content!,
+                  date: DateFormat('dd-MM-yyyy').format(DateTime.now()),
                   color: Colors.blue.value,
                 );
                 BlocProvider.of<AddNoteCubit>(context).addNote(noteModel);
-              }
-              else {
+              } else {
                 autovalidateMode = AutovalidateMode.always;
-                setState(() {
-                  
-                });
-              }              
+                setState(() {});
+              }
             },
           ),
           const SizedBox(

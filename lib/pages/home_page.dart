@@ -9,19 +9,22 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
+      body: const Column(
         children: [
-          const CustomAppBar(),
+          CustomAppBar(
+            icon: Icons.search,
+            title: "Notes",
+          ),
           Expanded(child: NotesListView()),
         ],
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           showModalBottomSheet(
-            isScrollControlled: true,
+              isScrollControlled: true,
               context: context,
               builder: (context) {
-                return NoteBottomSheet();
+                return const NoteBottomSheet();
               });
         },
         backgroundColor: Colors.lightBlue,
